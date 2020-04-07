@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+   text: string = "Le texte par defaut";
+
   constructor() {}
 
+  onChangeText(){
+    this.text = "Steven seagal est une quiche";
+  }
+  
 }
