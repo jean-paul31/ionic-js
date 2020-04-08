@@ -16,7 +16,6 @@ const confirmBtn = document.querySelector("#btn-confirm").addEventListener("clic
             document.body.appendChild(alertCtrl);
             return alertCtrl.present();
     }
-    console.log(nameInputValue, ratingInputValue);
     
     const newItem = document.createElement("ion-item");
     newItem.innerHTML = "<b>"+ nameInputValue + "</b> : " + ratingInputValue + " / 5";
