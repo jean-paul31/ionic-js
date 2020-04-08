@@ -4,14 +4,19 @@ const cancelBtn = document.querySelector("#btn-cancel");
 const depensesList = document.querySelector("#depenses-list");
 const totalDepensesOutput = document.querySelector("#total-depenses");
 let totaldepenses = 0;
-const clear = () =>{descInput.value = "";montantInput.value = "";}
+const clear = () =>{descInput.value = "";montantInput.value = "";};
+const alertCtrl = document.createElement("ion-alert");
 const confirmBtn = document.querySelector("#btn-confirm").addEventListener("click", () =>{
     const enteredDesc = descInput.value;
     const enteredMontant = montantInput.value;
     if (enteredDesc.trim() <= 0 ||
         enteredMontant <= 0 ||
         enteredMontant.trim() <= 0) {
-        return;
+            alertCtrl.header = "champs invalides";
+            alertCtrl.message = "Veuillez entrer une Description et un montant";
+            alertCtrl.buttons = ["OK"];
+            document.body.appendChild(alertCtrl);
+            return alertCtrl.present();
     }
     console.log(enteredDesc, enteredMontant);
     
@@ -19,7 +24,7 @@ const confirmBtn = document.querySelector("#btn-confirm").addEventListener("clic
     newItem.textContent = `${enteredDesc} : ${enteredMontant} €`;
     depensesList.appendChild(newItem);
     totaldepenses += +enteredMontant;
-    totalDepensesOutput.textContent = totaldepenses;   
+    totalDepensesOutput.textContent =`${totaldepenses} €`;   
     clear;
 });
 
