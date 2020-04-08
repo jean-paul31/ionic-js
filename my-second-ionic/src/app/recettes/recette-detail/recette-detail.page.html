@@ -1,9 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>recette-detail</ion-title>
+    <ion-title> {{ loadedRecette.title }} </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-img [src]="loadedRecette.imageUrl"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-list>
+        <ion-item *ngFor="let ingredient of loadedRecette.ingredients"> {{ingredient}} </ion-item>
+      </ion-list>
+    </ion-row>
+  </ion-grid>
 </ion-content>

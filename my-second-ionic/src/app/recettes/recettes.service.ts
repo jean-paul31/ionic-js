@@ -19,4 +19,13 @@ export class RecettesService {
      ingredients:["pate à pizza", "oignons", "sauce tomate", "chorizo", "fromage"]
    }];
   constructor() { }
+  
+  getAllRecettes(){
+    return [...this.recettes];
+  }
+  getRecette(recetteId: string){
+    return{...this.recettes.find(recette =>{
+      return recette.id===recetteId;
+    })};
+  }
 }
