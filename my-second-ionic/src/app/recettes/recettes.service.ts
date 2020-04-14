@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Recette } from './recette.model';
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,10 @@ export class RecettesService {
     return{...this.recettes.find(recette =>{
       return recette.id===recetteId;
     })};
+  }
+  deleteRecette(recetteId: string){
+    this.recettes = this.recettes.filter(recette => {
+      return recette.id !== recetteId;
+    });
   }
 }
