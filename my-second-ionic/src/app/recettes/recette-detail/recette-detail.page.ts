@@ -32,24 +32,24 @@ export class RecetteDetailPage implements OnInit {
     this.alertCtrl.create(
         { 
         header: 'Supprimer ?',
-        message: "Voulez vous supprimer cette recette?",
+        message: 'Voulez vous supprimer cette recette?',
         buttons: [{
-          text: "Annuler",
-          role: "cancel"
+          text: 'Annuler',
+          role: 'Cancel'
         },
         {
           text: "effacer",
           handler: () => {
             this.recettesService.deleteRecette(this.loadedRecette.id);
-            this.router.navigate(['./recettes']);
+            this.router.navigate(['/recettes']);
           }
         }
       ]
       }).then(uneAlerte =>{
         uneAlerte.present();
      })
-    this.recettesService.deleteRecette(this.loadedRecette.id);
-    this.router.navigate(['/recettes']);
+   
+    
   }
 
 }
