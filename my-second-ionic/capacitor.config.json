@@ -1,0 +1,8 @@
+{
+  "appId": "com.my-second-ionic",
+  "appName": "my-second-ionic",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

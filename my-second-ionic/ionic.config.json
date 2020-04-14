@@ -1,5 +1,7 @@
 {
   "name": "my-second-ionic",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
