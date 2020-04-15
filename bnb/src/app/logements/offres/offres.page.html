@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>offres</ion-title>
     <ion-buttons slot="primary">
-      <ion-button [routerLink]="/logements/tabs/offres/new">
+      <ion-button routerLink="/logements/tabs/offres/new">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -10,22 +10,22 @@
 </ion-header>
 
 <ion-content>
-  <ion-row>
-    <ion-col>
-      <ion-list>
-        <ion-item detail 
-                  *ngFor="let element of loadedLogements.slice(1)"
-                  [routerLink]="['/', 'logements', 'tabs', 'discover', element.id]">
-          <ion-thumbnail slot="start">
-            <ion-img [src]="element.imageUrl"></ion-img>
-          </ion-thumbnail>
-          <ion-label>
-            <h2> {{element.title}} </h2>
-            <p> {{element.description}} </p>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-col>
-  </ion-row>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item detail *ngFor="let element of loadedOffres"
+            [routerLink]="['/', 'logements', 'tabs', 'offres', element.id]">
+            <ion-thumbnail slot="start">
+              <ion-img [src]="element.imageUrl"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2> {{element.title}} </h2>
+              <p> {{element.description}} </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

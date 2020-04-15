@@ -6,7 +6,7 @@ import { LogementsPage } from './logements.page';
 const routes: Routes = [
   {
     path: 'tabs',
-    component: LogementsPage,
+    component: LogementsPage, 
     children:[
       {
         path: 'discover',

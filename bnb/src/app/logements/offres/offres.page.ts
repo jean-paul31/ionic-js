@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+
+import { Logement } from '../logement.model';
+import { LogementsService } from '../logements.service';
 
 @Component({
   selector: 'app-offres',
@@ -8,9 +10,12 @@ import { NavController } from '@ionic/angular';
 })
 export class OffresPage implements OnInit {
 
-  constructor( private navCtrl: NavController) { }
+  loadedOffres: Logement[];
+
+  constructor( private logementsService: LogementsService) { }
 
   ngOnInit() {
+    this.loadedOffres = this.logementsService.logements;
   }
 
 }
