@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LogementsService } from '../logements.service';
+import { Logement } from '../logement.model';
 
 @Component({
   selector: 'app-discover',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscoverPage implements OnInit {
 
-  constructor() { }
+  loadedLogements: Logement[];
+
+  constructor(private logementsService: LogementsService) { }
 
   ngOnInit() {
+    this.loadedLogements = this.logementsService.logements;
   }
 
 }

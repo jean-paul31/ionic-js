@@ -5,5 +5,57 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      
+      <ion-col size="12" size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title> 
+              {{loadedLogements[0].title}} 
+            </ion-card-title>
+            <ion-card-subtitle> 
+              {{loadedLogements[0].prix}} 
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-img [src]="loadedLogements[0].imageUrl" ></ion-img>
+          <ion-card-content>
+            <p> 
+              {{loadedLogements[0].description}} 
+            </p>
+          </ion-card-content>
+          <div>
+            <ion-button 
+                        fill="clear" 
+                        color="primary" 
+                        [routerLink]="['/', 
+                                      'logements', 
+                                      'tabs',
+                                      'discover', 
+                                      loadedLogements[0].id]">
+            ...Plus
+            </ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item detail 
+                    *ngFor="let element of loadedLogements.slice(1)"
+                    [routerLink]="['/', 'logements', 'tabs', 'discover', element.id]">
+            <ion-thumbnail slot="start">
+              <ion-img [src]="element.imageUrl"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2> {{element.title}} </h2>
+              <p> {{element.description}} </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
