@@ -1,12 +1,20 @@
 <ion-header>
-  <ion-toolbar>    
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/logements/tabs/offres"></ion-back-button>
     </ion-buttons>
-    <ion-title>Détail Logement</ion-title>
+    <ion-title> {{logement.title}} </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-<ion-button color="primary" margin (click)="onBookoffres()">Reserver</ion-button>
+  <ion-button color="primary" 
+              margin 
+              [routerLink]="['/', 
+                            'logements', 
+                            'tabs', 
+                            'offres', 
+                            'edit', 
+                            logement.id]"> Modifier</ion-button>
+  
 </ion-content>

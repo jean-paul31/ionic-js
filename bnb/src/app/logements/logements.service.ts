@@ -34,6 +34,12 @@ export class LogementsService {
       return [...this._logements];
     }
 
+    getLogement(id: string){
+       return {...this._logements.find(unLogement =>
+          unLogement.id === id
+       )};
+    }
+
   constructor() { }
 
   
