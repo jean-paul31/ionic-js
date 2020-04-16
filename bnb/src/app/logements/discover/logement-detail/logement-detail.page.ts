@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NavController, ModalController } from '@ionic/angular';
+import { CreateBookingComponent } from 'src/app/bookings/create-booking/create-booking.component';
+import { Logement } from '../../logement.model';
+import { LogementsService } from '../../logements.service';
+
 
 @Component({
   selector: 'app-logement-detail',
@@ -9,15 +13,33 @@ import { NavController } from '@ionic/angular';
 })
 export class LogementDetailPage implements OnInit {
 
+  logement: Logement;
+
   constructor(private router: Router,
-              private navCtrl: NavController) { }
+              private route: ActivatedRoute,
+              private navCtrl: NavController,
+              private logementsService: LogementsService,
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(paramMap =>{
+      if (!paramMap.has('logementId')) {
+        this.navCtrl.navigateBack('/logements/tabs.discover');
+        return;
+      }
+      this.logement = this.logementsService.getLogement(paramMap.get('logementId'));
+    })
   }
+
+
   onBookLogement(){
     // this.router.navigateByUrl('/logements/tabs/discover');
     // this.navCtrl.navigateBack('/logements/tabs/discover');
-    this.navCtrl.pop();
+    // this.navCtrl.pop();
+    this.modalCtrl.create({component: CreateBookingComponent, componentProps:{selectedLogement: this.logement} }).then(maModal=>{
+      maModal.present();
+      return maModal.onDidDismiss();
+    });
   }
 
 }

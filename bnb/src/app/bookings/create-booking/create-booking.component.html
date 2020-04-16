@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-toolbar>
+      <ion-title>{{selectedLogement.title}} </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="onCancel()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding class="ion-text-center">
+  <p> {{selectedLogement.description}} </p>
+  <ion-button (click)="onBookLogement()">reserver</ion-button>
+</ion-content>
