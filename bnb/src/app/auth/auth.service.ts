@@ -5,16 +5,16 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  private userIsVerified = false;
+  public _userIsVerified: boolean = false;
 
   constructor() { }
 
   login(){
-    this.userIsVerified = true;
+    this._userIsVerified = true;
   }
 
   logout(){
-    this.userIsVerified = false;
+    this._userIsVerified = false;
   }
 
 }
