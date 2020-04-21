@@ -14,6 +14,7 @@ import { Logement } from '../logement.model';
 export class OffresPage implements OnInit, OnDestroy {
   offres: Logement[];
   private logementsSub: Subscription;
+  isLoading = false;
 
   constructor(private logementsService: LogementsService, private router: Router) {}
 
@@ -24,7 +25,9 @@ export class OffresPage implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter(){
-    this.logementsService.fetchLogements().subscribe();
+    this.isLoading = true;
+    this.logementsService.fetchLogements().subscribe(()=>{
+      this.isLoading = false;    });
   }
 
   onEdit(offerId: string, slidingItem: IonItemSliding) {

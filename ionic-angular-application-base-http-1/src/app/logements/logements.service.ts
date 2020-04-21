@@ -59,7 +59,7 @@ export class LogementsService {
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   fetchLogements(){
-    return this.http.get<{[key:string]:LogementData}>('https://ionic-angular-superbnb.firebaseio.com/offre-logements.json')
+    return this.http.get<{[key:string]:LogementData}>('https://ionic-superbnb.firebaseio.com/offre-logements.json')
     .pipe(map(resData =>{
              //console.log(resData);
              const logements = [];
@@ -118,14 +118,12 @@ export class LogementsService {
     );
     return this.http.post<{name:string}>('https://ionic-superbnb.firebaseio.com/offre-logements.json',
     {...newLogement, id:null}).pipe(
-      switchMap(resData => {
-        console.log(resData);
-        
+      switchMap(resData => {        
         return this.logements
       }),
       take(1),
            tap(logements => {
-             newLogement.id = generatedId;
+             newLogement.id = generatedId;           
         this._logements.next(logements.concat(newLogement));
       })
     );
