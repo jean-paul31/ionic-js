@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <!-- <ion-button (click)="onOpenMenu()">
+        Open
+      </ion-button> -->
+    </ion-buttons>
+    <ion-title>Découvrir des Logements</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-segment (ionChange)="onFilterUpdate($event)" value="all">
+    <ion-segment-button value="all">Tous Les Logements</ion-segment-button>
+    <ion-segment-button value="bookable">Logements à Réserver</ion-segment-button>
+  </ion-segment>
+  <ion-grid *ngIf="!relevantLogements || relevantLogements.length <= 0">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <p>There are no bookable logements right now, please come back later!</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="relevantLogements.length > 0">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ relevantLogements[0].title }}</ion-card-title>
+            <ion-card-subtitle>{{ relevantLogements[0].prix | currency: 'EUR' }} / Nuit</ion-card-subtitle
+            >
+          </ion-card-header>
+          <ion-img [src]="relevantLogements[0].imageUrl"></ion-img>
+          <ion-card-content>
+            <p>{{ relevantLogements[0].description }}</p>
+          </ion-card-content>
+          <div>
+            <ion-button
+              fill="clear"
+              color="primary"
+              [routerLink]="[
+                '/',
+                'logements',
+                'tabs',
+                'discover',
+                relevantLogements[0].id
+              ]"
+            >
+              Plus
+            </ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-virtual-scroll
+          [items]="listedLoadedLogements"
+          approxItemHeight="70px">
+          <ion-item [routerLink]="['/', 'logements', 'tabs', 'discover', logement.id]"
+            detail *virtualItem="let logement">
+            <ion-thumbnail slot="start">
+              <ion-img [src]="logement.imageUrl"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2>{{ logement.title }}</h2>
+              <p>{{ logement.description }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-virtual-scroll>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
