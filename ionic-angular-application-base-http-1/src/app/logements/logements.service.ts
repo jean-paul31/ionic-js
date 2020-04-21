@@ -116,9 +116,11 @@ export class LogementsService {
       dateTo,
       this.authService.userId
     );
-    return this.http.post<{name:string}>('https://ionic-angular-superbnb.firebaseio.com/offre-logements.json',
+    return this.http.post<{name:string}>('https://ionic-superbnb.firebaseio.com/offre-logements.json',
     {...newLogement, id:null}).pipe(
       switchMap(resData => {
+        console.log(resData);
+        
         return this.logements
       }),
       take(1),
