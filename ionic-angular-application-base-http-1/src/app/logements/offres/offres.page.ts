@@ -13,8 +13,9 @@ import { Logement } from '../logement.model';
 })
 export class OffresPage implements OnInit, OnDestroy {
   offres: Logement[];
-  private logementsSub: Subscription;
   isLoading = false;
+  private logementsSub: Subscription;
+  
 
   constructor(private logementsService: LogementsService, private router: Router) {}
 
@@ -27,7 +28,8 @@ export class OffresPage implements OnInit, OnDestroy {
   ionViewWillEnter(){
     this.isLoading = true;
     this.logementsService.fetchLogements().subscribe(()=>{
-      this.isLoading = false;    });
+      this.isLoading = false;
+    });
   }
 
   onEdit(offerId: string, slidingItem: IonItemSliding) {

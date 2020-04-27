@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -16,13 +16,16 @@ export class EditOfferPage implements OnInit, OnDestroy {
   logement: Logement;
   form: FormGroup;
   private logementSub: Subscription;
+  isLoading = false;
+  logementId: string;
 
   constructor(
     private route: ActivatedRoute,
     private logementsService: LogementsService,
     private navCtrl: NavController,
     private router: Router,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController, 
   ) {}
 
   ngOnInit() {
@@ -31,6 +34,8 @@ export class EditOfferPage implements OnInit, OnDestroy {
         this.navCtrl.navigateBack('/logements/tabs/offres');
         return;
       }
+      this.logementId = paramMap.get('logementId');
+      this.isLoading = true;
       this.logementSub = this.logementsService
         .getLogement(paramMap.get('logementId'))
         .subscribe(logement => {
@@ -45,6 +50,17 @@ export class EditOfferPage implements OnInit, OnDestroy {
               validators: [Validators.required, Validators.maxLength(180)]
             })
           });
+          this.isLoading = false;
+        }, error =>{
+          this.alertCtrl.create({
+            header:'Une erreur est survenu.',
+            message: 'Impossible de charger le logement, veuillez essayer plus tard',
+            buttons: [{text: 'OK', handler: ()=>{
+              this.router.navigate(['/logements/tabs/offres']);
+            }}]
+          }).then(alertEl => {
+            alertEl.present();
+          })
         });
     });
   }

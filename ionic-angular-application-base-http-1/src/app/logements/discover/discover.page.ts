@@ -13,6 +13,7 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./discover.page.scss']
 })
 export class DiscoverPage implements OnInit, OnDestroy {
+  isLoading = false;
   loadedLogements: Logement[];
   listedLoadedLogements: Logement[];
   relevantLogements: Logement[];
@@ -30,6 +31,12 @@ export class DiscoverPage implements OnInit, OnDestroy {
       this.relevantLogements = this.loadedLogements;
       this.listedLoadedLogements = this.relevantLogements.slice(1);
     });
+  }
+  ionViewWillEnter(){
+    this.isLoading = true;
+    this.logementsService.fetchLogements().subscribe(()=>{
+      this.isLoading = false;
+    })
   }
 
   onOpenMenu() {

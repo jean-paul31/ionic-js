@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { take, map, tap, delay, switchMap } from 'rxjs/operators';
 
 import { Logement } from './logement.model';
@@ -90,12 +90,24 @@ export class LogementsService {
   }
 
   getLogement(id: string) {
-    return this.logements.pipe(
-      take(1),
-      map(logements => {
-        return { ...logements.find(p => p.id === id) };
-      })
-    );
+    // return this.logements.pipe(
+    //   take(1),
+    //   map(logements => {
+    //     return { ...logements.find(p => p.id === id) };
+    //   })
+    // );
+    return this.http.get<LogementData>(`https://ionic-superbnb.firebaseio.com/offre-logements/${id}.json`).pipe(map(logementData =>{
+      return new Logement(
+        id,
+        logementData.title,
+        logementData.description,
+        logementData.imageUrl,
+        logementData.prix,
+        new Date( logementData.dispoDebut),
+        new Date( logementData.dispoFin),
+        logementData.userId
+      )
+    }));
   }
 
   addLogement(
@@ -137,26 +149,63 @@ export class LogementsService {
     // );
   }
 
-  updateLogement(logementId: string, title: string, description: string) {
-    return this.logements.pipe(
-      take(1),
-      delay(1000),
-      tap(logements => {
-        const updatedLogementIndex = logements.findIndex(pl => pl.id === logementId);
-        const updatedLogements = [...logements];
-        const oldLogement = updatedLogements[updatedLogementIndex];
-        updatedLogements[updatedLogementIndex] = new Logement(
-          oldLogement.id,
-          title,
-          description,
-          oldLogement.imageUrl,
-          oldLogement.prix,
-          oldLogement.dispoDebut,
-          oldLogement.dispoFin,
-          oldLogement.userId
-        );
-        this._logements.next(updatedLogements);
-      })
-    );
-  }
+//   updateLogement(logementId: string, title: string, description: string) {
+//     return this.logements.pipe(
+//       take(1),
+//       delay(1000),
+//       tap(logements => {
+//         const updatedLogementIndex = logements.findIndex(pl => pl.id === logementId);
+//         const updatedLogements = [...logements];
+//         const oldLogement = updatedLogements[updatedLogementIndex];
+//         updatedLogements[updatedLogementIndex] = new Logement(
+//           oldLogement.id,
+//           title,
+//           description,
+//           oldLogement.imageUrl,
+//           oldLogement.prix,
+//           oldLogement.dispoDebut,
+//           oldLogement.dispoFin,
+//           oldLogement.userId
+//         );
+//         this._logements.next(updatedLogements);
+//       })
+//     );
+//   }
+
+updateLogement(logementId: string, title:string, description:string){
+  let updatedLogements: Logement[];
+  return this.logements.pipe(
+    take(1),
+    switchMap(logements => {
+      if (!logements || logements.length <= 0) {
+        return this.fetchLogements();
+      } else {
+        return of(logements);
+      }
+      
+    }), 
+    switchMap(logements => {
+          const updatedLogementIndex = logements.findIndex(pl => pl.id === logementId);
+          updatedLogements = [...logements];
+          const oldLogement = updatedLogements[updatedLogementIndex];
+          updatedLogements[updatedLogementIndex] = new Logement(
+                      oldLogement.id,
+                      title,
+                      description,
+                      oldLogement.imageUrl,
+                      oldLogement.prix,
+                      oldLogement.dispoDebut,
+                      oldLogement.dispoFin,
+                      oldLogement.userId
+          );
+          return this.http.put(`https://ionic-superbnb.firebaseio.com/offre-logements/${logementId}.json`,
+          {...updatedLogements[updatedLogementIndex], id: null}
+          );
+    }),
+    tap(()=> {
+      this._logements.next(updatedLogements)
+    })
+   
+  )
+}
 }

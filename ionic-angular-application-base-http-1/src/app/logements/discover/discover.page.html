@@ -15,14 +15,21 @@
     <ion-segment-button value="all">Tous Les Logements</ion-segment-button>
     <ion-segment-button value="bookable">Logements à Réserver</ion-segment-button>
   </ion-segment>
-  <ion-grid *ngIf="!relevantLogements || relevantLogements.length <= 0">
+  <ion-grid *ngIf="isloading">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!isLoading && (!relevantLogements || relevantLogements.length <= 0 )">
     <ion-row>
       <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
         <p>There are no bookable logements right now, please come back later!</p>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="relevantLogements.length > 0">
+  <ion-grid *ngIf="!isLoading && relevantLogements.length > 0">
     <ion-row>
       <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
         <ion-card>

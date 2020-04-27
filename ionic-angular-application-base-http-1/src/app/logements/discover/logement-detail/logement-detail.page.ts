@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   NavController,
   ModalController,
   ActionSheetController,
-  LoadingController
+  LoadingController,
+  AlertController
 } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
@@ -23,6 +24,7 @@ export class LogementDetailPage implements OnInit, OnDestroy {
   logement: Logement;
   isBookable = false;
   private logementSub: Subscription;
+  isLoading = false;
 
   constructor(
     private navCtrl: NavController,
@@ -32,7 +34,9 @@ export class LogementDetailPage implements OnInit, OnDestroy {
     private actionSheetCtrl: ActionSheetController,
     private bookingService: BookingService,
     private loadingCtrl: LoadingController,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertCtrl: AlertController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -41,11 +45,27 @@ export class LogementDetailPage implements OnInit, OnDestroy {
         this.navCtrl.navigateBack('/logements/tabs/discover');
         return;
       }
+      this.isLoading = true;
       this.logementSub = this.logementsService
         .getLogement(paramMap.get('logementId'))
         .subscribe(logement => {
           this.logement = logement;
           this.isBookable = logement.userId !== this.authService.userId;
+          this.isLoading = false;
+        }, error =>{
+          this.alertCtrl.create({
+            header: 'Une erreur est survenue',
+            message: 'Impossible de charger le logement',
+            buttons:[{
+              text:'OK',
+              handler: ()=>{
+                this.router.navigate(['/logements/tabs/discover'])
+              }
+            }]
+          }
+          ).then(alertEl =>{
+            alertEl.present();
+          })
         });
     });
   }
