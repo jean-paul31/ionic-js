@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { take, tap, delay } from 'rxjs/operators';
+import { take, tap, delay, switchMap, map } from 'rxjs/operators';
 
 import { Booking } from './booking.model';
 import { AuthService } from '../auth/auth.service';
