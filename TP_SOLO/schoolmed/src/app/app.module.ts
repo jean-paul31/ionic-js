@@ -8,12 +8,32 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { HeaderComponent } from './header/header.component';
+import { ExploreContainerComponentModule } from './explore-container/explore-container.module';
+import { ExploreContainerComponent } from './explore-container/explore-container.component';
+
+
+
+
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    SigninComponent,
+    SignupComponent,
+    HeaderComponent,
+    ExploreContainerComponent
+  ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule,
+     IonicModule.forRoot(), 
+     AppRoutingModule,
+     ExploreContainerComponentModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,

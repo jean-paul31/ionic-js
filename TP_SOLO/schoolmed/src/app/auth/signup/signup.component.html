@@ -1,0 +1,25 @@
+<ion-row>
+  <ion-col class="sm-8 offset-2">
+    <h2>Connexion</h2>
+    <ion-form [formGroup]="signupForm"(ngSubmit)="onSubmit()">
+      <ion-form-group>
+        <ion-label for="email">Email</ion-label>
+        <ion-input type:"text" 
+                   id="email" 
+                   class="form-control"
+                   formControleName="email">
+      </ion-form-group>
+      <ion-form-group>
+        <ion-label for="password">Mot de passe</ion-label>
+        <ion-input type:"password" 
+                   id="password" 
+                   class="form-control"
+                   formControleName="password">
+      </ion-form-group>
+      <ion-button type="submit" 
+                  color="primary"
+                  [disabled]="signupForm.invalid" margin></ion-tab-button>
+    </ion-form>
+    <p class="text-danger"> {{errorMessage}} </p>
+  </ion-col>
+</ion-row>
