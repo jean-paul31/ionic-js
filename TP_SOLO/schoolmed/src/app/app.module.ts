@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { HeaderComponent } from './header/header.component';
-import { ExploreContainerComponentModule } from './explore-container/explore-container.module';
 import { ExploreContainerComponent } from './explore-container/explore-container.component';
 
 
@@ -31,8 +30,7 @@ import { ExploreContainerComponent } from './explore-container/explore-container
   imports: [
     BrowserModule,
      IonicModule.forRoot(), 
-     AppRoutingModule,
-     ExploreContainerComponentModule
+     AppRoutingModule
   ],
   providers: [
     StatusBar,
