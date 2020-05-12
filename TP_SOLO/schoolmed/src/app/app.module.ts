@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { ReactiveFormsModule } from "@angular/forms";
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -12,6 +13,8 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { HeaderComponent } from './header/header.component';
 import { ExploreContainerComponent } from './explore-container/explore-container.component';
+import { SigninModule } from './auth/signin/signin.module';
+import { SignupModule } from './auth/signup/signup.module';
 
 
 
@@ -30,7 +33,10 @@ import { ExploreContainerComponent } from './explore-container/explore-container
   imports: [
     BrowserModule,
      IonicModule.forRoot(), 
-     AppRoutingModule
+     AppRoutingModule,
+     ReactiveFormsModule,
+     SigninModule,
+     SignupModule
   ],
   providers: [
     StatusBar,

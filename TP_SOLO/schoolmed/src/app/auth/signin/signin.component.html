@@ -1,7 +1,7 @@
 <ion-row>
-  <ion-col class="sm-8 offset-2">
+  <ion-col size-sm="8" offse-sm="2">
     <h2>Connexion</h2>
-    <form [formGroup]="signInForm"(ngSubmit)="onSubmit()">
+    <form [FormGroup]="signupForm" (ngSubmit)="onSubmit()">
         <ion-label for="email">Email</ion-label>
         <ion-input type:"text" 
                    id="email" 
