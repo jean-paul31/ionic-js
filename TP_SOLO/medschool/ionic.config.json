@@ -1,0 +1,7 @@
+{
+  "name": "medschool",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

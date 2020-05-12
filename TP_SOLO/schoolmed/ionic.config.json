@@ -1,7 +1,0 @@
-{
-  "name": "schoolmed",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
